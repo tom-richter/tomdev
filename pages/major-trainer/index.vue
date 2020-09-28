@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <h1>Major System Trainer</h1>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({
   head: {
-    title: 'Home - Tom Richter',
+    title: 'Major System Trainer',
   },
 })
 export default class PageIndex extends Vue {}

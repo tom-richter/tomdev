@@ -11,7 +11,7 @@
         </template>
         <v-list>
           <v-list-item>
-            <v-btn text to="/">GPX-Builder</v-btn>
+            <v-btn text to="/geocaching/gpx-builder">GPX-Builder</v-btn>
           </v-list-item>
           <v-list-item>
             <v-btn text to="/">Mehrfach-Peilung</v-btn>
@@ -23,7 +23,7 @@
           <v-btn text rounded v-bind="attrs" v-on="on">Diverses</v-btn>
         </template>
         <v-list>
-          <v-btn text to="/">Major System Trainer</v-btn>
+          <v-btn text to="/major-trainer">Major System Trainer</v-btn>
         </v-list>
       </v-menu>
       <v-btn text rounded to="/contact">Kontakt</v-btn>

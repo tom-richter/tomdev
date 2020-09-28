@@ -7,3 +7,14 @@
     </p>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component({
+  head: {
+    title: 'Kontakt - Tom Richter',
+  },
+})
+export default class PageIndex extends Vue {}
+</script>
