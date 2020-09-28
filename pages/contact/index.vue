@@ -16,5 +16,5 @@ import { Component, Vue } from 'nuxt-property-decorator'
     title: 'Kontakt - Tom Richter',
   },
 })
-export default class PageIndex extends Vue {}
+export default class Contact extends Vue {}
 </script>

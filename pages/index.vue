@@ -12,5 +12,5 @@ import { Component, Vue } from 'nuxt-property-decorator'
     title: 'Home - Tom Richter',
   },
 })
-export default class PageIndex extends Vue {}
+export default class Home extends Vue {}
 </script>

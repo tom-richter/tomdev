@@ -10,7 +10,15 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component({
   head: {
     title: 'GPX-Builder - Geocaching',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Mit dem GPX-Builder kannst du eine Liste von Koordinaten in eine GPX-Datei umwandeln. Koordinaten im beim Geocaching üblichen Dezimalminuten-Format werden akzeptiert.',
+      },
+    ],
   },
 })
-export default class PageIndex extends Vue {}
+export default class GpxBuilder extends Vue {}
 </script>
