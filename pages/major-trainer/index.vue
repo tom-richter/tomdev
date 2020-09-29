@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <h1>Major System Trainer</h1>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col>
+        <h1>Major System Trainer</h1>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">

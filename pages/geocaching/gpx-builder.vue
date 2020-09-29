@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <h1>GPX-Builder</h1>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col>
+        <h1>GPX-Builder</h1>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
