@@ -3,26 +3,40 @@
     <v-row>
       <v-col>
         <h1>Major System Trainer</h1>
-        Mit diesem Tool kannst du das Major System üben. Es werden alle Zahlen in dem angegebenen
-        Intervall zufällig nacheinander genau einmal ausgegeben. In einem Durchlauf wird keine Zahl
-        wiederholt. Die Intervallgrenzen sind mit inbegriffen.
+        <p>
+          Mit diesem Tool kannst du das Major System üben. Es werden alle Zahlen in dem angegebenen
+          Intervall zufällig nacheinander genau einmal ausgegeben. In einem Durchlauf wird keine
+          Zahl wiederholt. Die Intervallgrenzen sind mit inbegriffen.
+        </p>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-form class="bound-input">
-          <v-text-field v-model.number="lowerBound" label="Untere Grenze" required></v-text-field>
+        <v-alert
+          v-if="error"
+          border="top"
+          colored-border
+          type="info"
+          color="red"
+          elevation="2"
+          class="mb-10"
+        >
+          {{ error }}
+        </v-alert>
+        <v-form class="bound-input" @submit.prevent="onSubmit">
+          <v-text-field label="Untere Grenze" name="lowerBound" value="1" required></v-text-field>
           <span class="to">bis</span>
-          <v-text-field v-model.number="upperBound" label="Obere Grenze" required></v-text-field>
-          <v-btn color="primary" class="ml-3" @click="onSubmit">Start</v-btn>
+          <v-text-field label="Obere Grenze" name="upperBound" value="10" required></v-text-field>
+          <v-btn color="primary" class="ml-3" type="submit">Start</v-btn>
         </v-form>
       </v-col>
     </v-row>
     <v-row v-if="roundRunning && !roundFinished">
       <v-col>
         <div class="number">{{ numbers[position] }}</div>
-        <v-progress-linear :value="((position + 1) / numbers.length) * 100"></v-progress-linear>
-        <div class="progress-counter">{{ position + 1 }}/{{ numbers.length }}</div>
+        <v-progress-linear :value="((position + 1) / numbers.length) * 100" height="25">
+          <span>{{ position + 1 }}/{{ numbers.length }}</span>
+        </v-progress-linear>
         <div class="next">
           <v-btn color="orange" @click="onNextNumber">Weiter</v-btn>
         </div>
@@ -53,8 +67,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
   },
 })
 export default class MajorTrainer extends Vue {
-  lowerBound = 0
-  upperBound = 0
+  error = ''
   numbers: number[] = []
   roundRunning = false
   roundFinished = false
@@ -71,8 +84,27 @@ export default class MajorTrainer extends Vue {
     }
   }
 
-  onSubmit() {
-    this.createRandomNumbers(this.lowerBound, this.upperBound)
+  isInteger(value: any) {
+    const regexp = new RegExp('^-?[0-9]+$')
+    return regexp.test(value)
+  }
+
+  onSubmit(submitEvent: any) {
+    const lowerBound: string = submitEvent.target.elements.lowerBound.value
+    const upperBound: string = submitEvent.target.elements.upperBound.value
+    this.error = ''
+    if ((!lowerBound && lowerBound !== '0') || (!upperBound && upperBound !== '0')) {
+      this.error = 'Beide Eingaben sind notwendig.'
+    } else if (!this.isInteger(lowerBound) || !this.isInteger(upperBound)) {
+      this.error = 'Beide Eingaben sollten ganze Zahlen sein.'
+    } else if (+lowerBound > +upperBound) {
+      this.error =
+        'Die untere Intervallgrenze sollte größer oder gleich der oberen Intervallgrenze sein.'
+    }
+    if (this.error) {
+      return
+    }
+    this.createRandomNumbers(+lowerBound, +upperBound)
     this.roundRunning = true
     this.roundFinished = false
     this.position = 0
@@ -90,7 +122,7 @@ export default class MajorTrainer extends Vue {
 
 <style scoped>
 .v-text-field {
-  width: 120px;
+  width: 90px;
   display: inline-block;
 }
 .bound-input {
@@ -108,17 +140,16 @@ span.to {
   vertical-align: middle;
   line-height: 100px;
 }
-.progress-counter {
-  text-align: center;
-  margin-top: 10px;
-}
 .next {
-  margin: 20px auto 0 auto;
+  margin: 20px auto 50px auto;
   text-align: center;
 }
 .success-message {
   text-align: center;
-  margin-top: 50px;
+  margin: 50px 0;
   font-size: 25px;
+}
+.smiley {
+  font-size: 50px;
 }
 </style>
