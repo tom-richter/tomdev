@@ -84,7 +84,7 @@ export default class MajorTrainer extends Vue {
     }
   }
 
-  isInteger(value: any) {
+  isInteger(value: string) {
     const regexp = new RegExp('^-?[0-9]+$')
     return regexp.test(value)
   }
@@ -93,7 +93,7 @@ export default class MajorTrainer extends Vue {
     const lowerBound: string = submitEvent.target.elements.lowerBound.value
     const upperBound: string = submitEvent.target.elements.upperBound.value
     this.error = ''
-    if ((!lowerBound && lowerBound !== '0') || (!upperBound && upperBound !== '0')) {
+    if (!lowerBound || !upperBound) {
       this.error = 'Beide Eingaben sind notwendig.'
     } else if (!this.isInteger(lowerBound) || !this.isInteger(upperBound)) {
       this.error = 'Beide Eingaben sollten ganze Zahlen sein.'
